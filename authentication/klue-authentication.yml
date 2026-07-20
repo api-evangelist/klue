@@ -1,0 +1,53 @@
+generated: '2026-07-19'
+method: searched
+source: https://klue.com/blog/how-to-connect-klue-to-chatgpt
+docs: https://help.app.klue.com/
+summary:
+  types: [apiKey]
+  api_key_in: [header]
+  oauth2_flows: []
+  note: >-
+    Klue publishes no OpenAPI document publicly; the Content API OpenAPI schema is
+    distributed inside the authenticated application under
+    Apps & Integrations > Content API > "How to use". This profile is therefore
+    searched from Klue's public documentation rather than derived from a spec.
+schemes:
+- name: klue-content-api-key
+  type: apiKey
+  in: header
+  parameter_name: Authorization
+  scheme_hint: bearer
+  description: >-
+    A Klue API key passed as a Bearer token. Klue's own ChatGPT setup guide
+    instructs users to select "API Key" with "Bearer" as the auth type and paste
+    the Klue API key.
+  applies_to:
+  - Klue Content API
+  - Klue MCP Server
+  sources:
+  - https://klue.com/blog/how-to-connect-klue-to-chatgpt
+key_management:
+  console_path: Apps & Integrations > Content API > Manage API Keys
+  requires_role: Admin
+  create: Create New API Key
+  named_keys: true
+  expiration:
+    supported: true
+    user_selected: true
+    vendor_recommendation: 1 year for production use
+  rotation_note: >-
+    Keys are named and carry a user-selected expiry, so rotation is
+    self-service. Klue's guidance is to treat the key like a password.
+sso:
+  supported: true
+  protocols: [SAML 2.0]
+  identity_providers:
+  - name: Okta
+    url: https://www.okta.com/integrations/klue/
+  - name: Microsoft Entra ID
+    url: https://learn.microsoft.com/en-us/entra/identity/saas-apps/klue-tutorial
+  source: https://klue.com/product/security
+access_control:
+  role_based_access: true
+  customized_user_permissions: true
+  source: https://klue.com/product/security
