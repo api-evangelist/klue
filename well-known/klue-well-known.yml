@@ -1,0 +1,23 @@
+generated: '2026-07-19'
+method: searched
+host: https://klue.com
+probed: '2026-07-19'
+documents:
+- path: /.well-known/security.txt
+  status: 200
+  file: klue-security.txt
+  standard: RFC 9116
+  content_type: text/plain; charset=utf-8
+- path: /.well-known/openid-configuration
+  status: 404
+- path: /.well-known/oauth-authorization-server
+  status: 404
+- path: /.well-known/api-catalog
+  status: 404
+- path: /.well-known/ai-plugin.json
+  status: 404
+- path: /llms.txt
+  status: 404
+  note: >-
+    No llms.txt, but Klue does publish a human/AI-oriented company fact page at
+    https://klue.com/llm-info, linked from the site footer as "Hey AI, learn about us".

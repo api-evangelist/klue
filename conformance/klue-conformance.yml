@@ -1,0 +1,85 @@
+generated: '2026-07-19'
+method: searched
+source: https://klue.com/product/security
+standards:
+- id: soc2-type-ii
+  conforms: true
+  evidence: >-
+    "Klue maintains SOC 2, Type II compliance in accordance with the five Trust
+    Services Criteria defined by the American Institute of Certified Public
+    Accountants." Audit report available on request via security@klue.com.
+  source: https://klue.com/product/security
+- id: gdpr
+  conforms: true
+  evidence: >-
+    "Klue complies with the GDPR and utilizes the June 2021 Standard Contractual
+    Clauses when applicable to govern its relationship with sub-processors."
+  source: https://klue.com/product/security
+- id: ccpa
+  conforms: true
+  evidence: >-
+    Klue states its California sales volume does not trigger CCPA applicability
+    but that it actively complies regardless, and does not sell personal data.
+  source: https://klue.com/product/security
+- id: pipeda
+  conforms: true
+  evidence: >-
+    Klue is headquartered in Canada and subject to PIPEDA; the European
+    Commission recognises PIPEDA as providing adequate safeguards with respect
+    to GDPR.
+  source: https://klue.com/product/security
+- id: saml2-sso
+  conforms: true
+  evidence: >-
+    Single Sign On listed in the enterprise-ready suite; published SAML SSO
+    integrations for Okta and Microsoft Entra ID.
+  source: https://www.okta.com/integrations/klue/
+- id: tls12-plus
+  conforms: true
+  evidence: >-
+    "Our web servers use the strongest grade HTTPS security (TLS 1.2+)".
+    SSL certificates 2048-bit RSA signed with SHA-256.
+  source: https://klue.com/product/security
+- id: aes256-encryption-at-rest
+  conforms: true
+  evidence: >-
+    Customer data stored in cloud-hosted databases and backups "encrypted with
+    AES-256 block-level storage encryption".
+  source: https://klue.com/product/security
+- id: rfc9116-security-txt
+  conforms: true
+  evidence: >-
+    https://klue.com/.well-known/security.txt returns 200 with Canonical,
+    Contact, Expires, Hiring, Policy and Preferred-Languages fields.
+  source: well-known/klue-security.txt
+- id: mcp
+  conforms: true
+  evidence: >-
+    Klue ships a production Model Context Protocol server with two connector
+    surfaces and a publicly published Agent Skill.
+  source: mcp/klue-mcp.yml
+- id: iso-27001
+  conforms: unknown
+  evidence: Not claimed on Klue's public security page.
+- id: hipaa
+  conforms: unknown
+  evidence: Not claimed on Klue's public security page.
+- id: fedramp
+  conforms: unknown
+  evidence: Not claimed on Klue's public security page.
+- id: pci-dss
+  conforms: unknown
+  evidence: Not claimed on Klue's public security page.
+- id: oauth2
+  conforms: unknown
+  evidence: >-
+    No public OAuth 2.0 authorization surface documented for the API; API access
+    uses bearer API keys. /.well-known/oauth-authorization-server returns 404.
+- id: rfc9457-problem-details
+  conforms: unknown
+  evidence: No public error reference or OpenAPI document to evaluate.
+infrastructure:
+  primary_cloud: Amazon Web Services
+  secondary_cloud: Google Cloud Storage
+  on_premise: false
+  source: https://klue.com/product/security

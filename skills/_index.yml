@@ -1,0 +1,76 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kluein/klue-mcp-public
+notes: >-
+  Klue publishes its own Agent Skill for the Klue MCP server in the public
+  repository kluein/klue-mcp-public. Files are saved verbatim, unmodified.
+  The skill routes an agent between two distinct MCP connector surfaces
+  (v1 and v2) and between quick-answer and deep-research modes.
+skills:
+- file: klue-mcp-SKILL.md
+  name: klue-mcp
+  description: >-
+    Queries the connected Klue competitive intelligence data source (cards,
+    battlecards, smart answers, agent insights, win/loss interviews and reports)
+    and returns cited answers about competitors, positioning, objections,
+    win/loss patterns, buyer feedback, and battlecard content.
+  api: mcp/klue-mcp.yml
+  method: searched
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
+  operations:
+  - search
+  - extract_battlecards
+  - match-smart-answers
+  - search_agent_insights
+- file: klue-mcp-v1-quick.md
+  name: Klue v1 Quick Answer Guide
+  description: Seller-focused quick-answer path for the Klue v1 MCP connector.
+  api: mcp/klue-mcp.yml
+  method: searched
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v1-quick.md
+  operations: [search, extract_battlecards]
+- file: klue-mcp-v1-deep.md
+  name: Klue v1 Deep Research Guide
+  description: Analyst-focused deep-research path for the Klue v1 MCP connector.
+  api: mcp/klue-mcp.yml
+  method: searched
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v1-deep.md
+  operations:
+  - search
+  - fetch
+  - extract_cards
+  - extract_battlecards
+  - create_card
+  - update_card
+  - delete_cards
+  - create_battlecard
+  - update_battlecard
+  - delete_battlecards
+  - search_win_loss_transcripts
+  - list_win_loss_transcripts
+  - get_win_loss_transcript
+  - search_win_loss_reports
+  - list_win_loss_reports
+  - get_win_loss_report
+- file: klue-mcp-v2-quick.md
+  name: Klue v2 Quick Answer Guide
+  description: Seller-focused quick-answer path for the Klue v2 MCP connector.
+  api: mcp/klue-mcp.yml
+  method: searched
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v2-quick.md
+  operations: [match-smart-answers, search_agent_insights]
+- file: klue-mcp-v2-deep.md
+  name: Klue v2 Deep Research Guide
+  description: Analyst-focused deep-research path for the Klue v2 MCP connector.
+  api: mcp/klue-mcp.yml
+  method: searched
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v2-deep.md
+  operations:
+  - match-smart-answers
+  - search_agent_insights
+  - search_win_loss_transcripts
+  - list_win_loss_transcripts
+  - get_win_loss_transcript
+  - search_win_loss_reports
+  - list_win_loss_reports
+  - get_win_loss_report

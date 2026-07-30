@@ -1,0 +1,26 @@
+generated: '2026-07-19'
+method: searched
+probe: false
+url: https://app.vanta.com/klue.com/trust/ufqzv8ddoyrewipfmrufp
+platform: Vanta
+discovered_via: >-
+  "View our trust center" link on https://klue.com/product/security
+certifications:
+- SOC 2 Type II
+compliance_programs:
+- GDPR
+- CCPA
+- PIPEDA
+requests:
+  audit_report: mailto:security@klue.com?subject=SOC%202%20Audit%20Report%20Request
+  penetration_test: mailto:security@klue.com?subject=External Penetration Test Request
+  data_processing_agreement: https://klue.com/privacy
+evidence:
+- source: https://klue.com/product/security
+  keywords: [soc 2 type ii, gdpr, ccpa, pipeda, trust center, aes-256, tls 1.2+]
+- source: https://app.vanta.com/klue.com/trust/ufqzv8ddoyrewipfmrufp
+  keywords: [vanta trust center]
+notes: >-
+  Klue does not host a trust centre on its own domain (trust.klue.com does not
+  resolve); it uses a hosted Vanta trust page linked from the public security
+  page.

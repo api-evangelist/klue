@@ -1,0 +1,43 @@
+generated: '2026-07-19'
+method: searched
+source: https://kluestatus.com/
+versioning:
+  scheme: connector-generation
+  current: v2
+  detail: >-
+    The Klue MCP surface ships as two distinct connectors, v1 (cards /
+    battlecards) and v2 (Smart Answers / agent insights). Klue documents these as
+    separate connectors rather than sequential versions of one surface, and
+    instructs agents to prefer v2 when both are present.
+  docs: https://github.com/kluein/klue-mcp-public
+deprecation:
+  policy_url: null
+  sunset_header: unknown
+  note: >-
+    No public deprecation or sunset policy found. No Deprecation pointer is
+    emitted for this provider.
+sla:
+  url: null
+  uptime_target: null
+  note: >-
+    Klue markets a "Dedicated CSM, SLA + Support" enterprise entitlement on its
+    security page, but publishes no SLA document or uptime target publicly.
+  source: https://klue.com/product/security
+status_page:
+  url: https://kluestatus.com/
+  provider: Atlassian Statuspage
+  subscribe:
+  - email
+  - Slack
+  - Microsoft Teams webhook
+  feeds:
+  - https://kluestatus.com/history.atom
+  - https://kluestatus.com/history.rss
+  observed_incident:
+    title: Data Sync Integration Issues
+    state: Identified
+    date: '2026-06-12T18:00:00Z'
+    note: >-
+      Observed on the status page at probe time; recorded as evidence the page is
+      live and actively maintained.
+deprecated_operations: []

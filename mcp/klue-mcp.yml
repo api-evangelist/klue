@@ -1,0 +1,126 @@
+generated: '2026-07-19'
+method: searched
+status: published
+source: https://klue.com/blog/introducing-klue-mcp-server
+announced: '2025-12-12'
+docs:
+- https://klue.com/blog/introducing-klue-mcp-server
+- https://github.com/kluein/klue-mcp-public
+server:
+  name: klue
+  transport: http
+  url: null
+  url_note: >-
+    Klue does not publish the MCP endpoint URL on its public marketing site.
+    Setup is documented inside the authenticated application and the customer
+    help centre (help.app.klue.com). The application host is https://app.klue.com
+    and all MCP paths probed there return a 302 to /account/signin, which is a
+    catch-all auth redirect and therefore NOT evidence of a specific path.
+  authentication: bearer-api-key
+  authentication_note: >-
+    Klue API keys are created by an Admin under Apps & Integrations and passed
+    as a Bearer token. See authentication/klue-authentication.yml.
+  read_write: true
+  read_write_note: >-
+    Klue states it is the only competitive intelligence platform whose MCP server
+    supports both read and writeback. Mutating tools are exposed on the admin
+    surface of the v1 connector.
+surfaces:
+- name: v1
+  description: >-
+    Cards / battlecards connector. Detected by the presence of `search` + `fetch`
+    with cards/battlecards tools and no v2 signals.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v1-deep.md
+- name: v2
+  description: >-
+    Smart Answers / agent insights connector (newer surface). Detected by the
+    presence of `match-smart-answers` or `search_agent_insights`.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v2-deep.md
+- name: win-loss
+  description: >-
+    Win/loss transcript and report tools. Can appear alongside either the v1 or
+    the v2 connector; not a routing signal on their own.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
+tools:
+- name: search
+  description: Search cards, alerts and competitive content. Primary v1 research tool.
+  surface: v1
+  kind: discovery
+- name: fetch
+  description: Fetch specific content by URL.
+  surface: v1
+  kind: retrieval
+- name: extract_cards
+  description: Keyword search across cards (title, body, tags, competitor).
+  surface: v1
+  kind: discovery
+- name: extract_battlecards
+  description: Keyword search across battlecards.
+  surface: v1
+  kind: discovery
+- name: create_card
+  description: Create a card.
+  surface: v1
+  kind: mutation
+- name: update_card
+  description: Update an existing card.
+  surface: v1
+  kind: mutation
+- name: delete_cards
+  description: Delete cards.
+  surface: v1
+  kind: mutation
+- name: create_battlecard
+  description: Create a battlecard.
+  surface: v1
+  kind: mutation
+- name: update_battlecard
+  description: Update an existing battlecard.
+  surface: v1
+  kind: mutation
+- name: delete_battlecards
+  description: Delete battlecards.
+  surface: v1
+  kind: mutation
+- name: match-smart-answers
+  description: Match a question to curated Klue Smart Answers.
+  surface: v2
+  kind: discovery
+- name: search_agent_insights
+  description: Search AI-generated competitive insights from Klue's analysis pipeline.
+  surface: v2
+  kind: discovery
+- name: search_win_loss_transcripts
+  description: Search win/loss interview transcripts.
+  surface: win-loss
+  kind: discovery
+- name: list_win_loss_transcripts
+  description: Browse available win/loss transcripts.
+  surface: win-loss
+  kind: discovery
+- name: get_win_loss_transcript
+  description: Retrieve a specific win/loss transcript.
+  surface: win-loss
+  kind: retrieval
+- name: search_win_loss_reports
+  description: Search win/loss analysis reports.
+  surface: win-loss
+  kind: discovery
+- name: list_win_loss_reports
+  description: Browse available win/loss reports.
+  surface: win-loss
+  kind: discovery
+- name: get_win_loss_report
+  description: Retrieve a specific win/loss report.
+  surface: win-loss
+  kind: retrieval
+parameters:
+  date_filters:
+    tools: [search, extract_battlecards]
+    params: [updatedAfter, updatedBefore]
+    format: ISO8601
+    example: '2024-11-01T00:00:00Z'
+tested_clients:
+- OpenAI Agent Builder
+- Microsoft Copilot Studio
+- Claude Desktop

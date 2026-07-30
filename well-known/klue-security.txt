@@ -1,0 +1,6 @@
+Canonical: https://klue.com/.well-known/security.txt
+Contact: mailto:security@klue.com
+Expires: 2030-12-31T12:00:00Z
+Hiring: https://klue.com/careers
+Policy: https://klue.com/privacy
+Preferred-Languages: en

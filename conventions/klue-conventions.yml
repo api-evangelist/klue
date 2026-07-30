@@ -1,0 +1,74 @@
+generated: '2026-07-19'
+method: searched
+source: https://github.com/kluein/klue-mcp-public
+docs: https://klue.com/blog/how-to-connect-klue-to-chatgpt
+scope: >-
+  Cross-cutting semantics for the Klue Content API and the Klue MCP server.
+  Klue publishes no public OpenAPI document, so nothing here is derived from a
+  spec; every entry is taken from Klue's public documentation, blog posts, or
+  its own published MCP Agent Skill.
+authentication:
+  style: bearer-api-key
+  header: Authorization
+  detail: authentication/klue-authentication.yml
+idempotency:
+  supported: unknown
+  note: >-
+    Klue does not publicly document an idempotency key, retry contract, or
+    request-deduplication window. The MCP surface exposes mutating tools
+    (create_card, update_card, delete_cards, create_battlecard,
+    update_battlecard, delete_battlecards) but no idempotency semantics are
+    published for them. NOT claimed as supported and no Idempotency pointer is
+    emitted.
+pagination:
+  style: unknown
+  note: Not publicly documented.
+filtering:
+  supported: true
+  content_api:
+    dimensions: [competitors, battlecards, tags, date ranges]
+    source: https://help.app.klue.com/
+  mcp:
+    date_params: [updatedAfter, updatedBefore]
+    format: ISO8601
+    example: '2024-11-01T00:00:00Z'
+    applies_to: [search, extract_battlecards]
+    recommended_default: 6 months
+    source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v1-quick.md
+versioning:
+  scheme: connector-generation
+  detail: >-
+    Klue's MCP surface is versioned as two distinct connectors, v1 and v2, which
+    Klue explicitly describes as "different connectors, not different versions of
+    the same tool surface". Agents are told to detect the surface by tool-name
+    signals rather than assume a version.
+  current: v2
+  detail_file: lifecycle/klue-lifecycle.yml
+error_envelope:
+  documented: false
+  note: No public error reference or problem-details envelope is published.
+rate_limits:
+  documented: false
+  note: No public rate-limit documentation or rate-limit response headers published.
+tracing:
+  request_id_header: unknown
+citations:
+  documented: true
+  note: >-
+    Klue's published skill requires agents to cite using the exact URL returned by
+    a tool response and forbids shortening, constructing, or fabricating URLs.
+    Citations must be numbered inline immediately after the claim, never grouped.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
+agent_safety:
+  documented: true
+  rules:
+  - Mutation tools are never called without an explicit user request.
+  - Unknown tools are classified by role before use; ask before using when unsure.
+  - Quick path is a hard stop after two tool calls.
+  - Never answer from memory; always ground in retrieved sources.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
+related:
+  authentication: authentication/klue-authentication.yml
+  lifecycle: lifecycle/klue-lifecycle.yml
+  mcp: mcp/klue-mcp.yml
+  skills: skills/_index.yml
