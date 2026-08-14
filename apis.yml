@@ -36,7 +36,7 @@ x-tier: enriched
 x-tier-reason: mcp-server-and-content-api
 specificationVersion: '0.20'
 created: '2026-07-17'
-modified: '2026-07-19'
+modified: '2026-08-14'
 tags:
 - Company
 - SaaS
@@ -68,8 +68,12 @@ apis:
   properties:
   - type: Authentication
     url: authentication/klue-authentication.yml
+  - type: OAuthScopes
+    url: scopes/klue-scopes.yml
   - type: Conventions
     url: conventions/klue-conventions.yml
+  - type: RateLimits
+    url: rate-limits/klue-rate-limits.yml
 - aid: klue:mcp
   name: Klue MCP Server
   description: >-
@@ -94,6 +98,8 @@ apis:
     url: skills/_index.yml
   - type: Authentication
     url: authentication/klue-authentication.yml
+  - type: OAuthScopes
+    url: scopes/klue-scopes.yml
 maintainers:
 - FN: Kin Lane
   email: kin@apievangelist.com
@@ -142,10 +148,18 @@ common:
   url: lifecycle/klue-lifecycle.yml
 - type: Authentication
   url: authentication/klue-authentication.yml
+- type: OAuthScopes
+  url: scopes/klue-scopes.yml
 - type: Conventions
   url: conventions/klue-conventions.yml
 - type: Conformance
   url: conformance/klue-conformance.yml
+- type: Packages
+  url: packages/klue-packages.yml
+- type: Plans
+  url: plans/klue-plans-pricing.yml
+- type: RateLimits
+  url: rate-limits/klue-rate-limits.yml
 - type: MCPServer
   url: mcp/klue-mcp.yml
 - type: AgentSkill
@@ -155,7 +169,11 @@ common:
 - type: Integrations
   url: https://klue.com/product/integrations
 x-enrichment:
-  date: '2026-07-19'
-  status: backfilled
+  date: '2026-08-14'
+  status: enriched
+  artifacts_added: 6
   pass: local-v1
-  note: backfilled from .gitignore signal + verified work evidence
+  note: >-
+    Contract discovery found Klue's OAuth/OIDC authorization server on the
+    APPLICATION host (app.klue.com), which the previous round missed by probing
+    only the marketing host — 23 published scopes, RFC 8414 + RFC 7591.
