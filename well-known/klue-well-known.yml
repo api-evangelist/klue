@@ -1,23 +1,101 @@
-generated: '2026-07-19'
+generated: '2026-08-14'
 method: searched
-host: https://klue.com
-probed: '2026-07-19'
-documents:
-- path: /.well-known/security.txt
-  status: 200
-  file: klue-security.txt
-  standard: RFC 9116
-  content_type: text/plain; charset=utf-8
-- path: /.well-known/openid-configuration
-  status: 404
-- path: /.well-known/oauth-authorization-server
-  status: 404
-- path: /.well-known/api-catalog
-  status: 404
-- path: /.well-known/ai-plugin.json
-  status: 404
-- path: /llms.txt
-  status: 404
+hosts:
+- host: https://klue.com
+  probed: '2026-08-14'
+  documents:
+  - path: /.well-known/security.txt
+    status: 200
+    file: klue-security.txt
+    standard: RFC 9116
+    content_type: text/plain; charset=utf-8
+  - path: /.well-known/openid-configuration
+    status: 404
+  - path: /.well-known/oauth-authorization-server
+    status: 404
+  - path: /.well-known/oauth-protected-resource
+    status: 404
+  - path: /.well-known/api-catalog
+    status: 404
+  - path: /.well-known/ai-plugin.json
+    status: 404
+  - path: /.well-known/agent-card.json
+    status: 404
+  - path: /.well-known/agent.json
+    status: 404
+  - path: /llms.txt
+    status: 404
+    note: >-
+      No llms.txt, but Klue does publish a human/AI-oriented company fact page at
+      https://klue.com/llm-info, linked from the site footer as "Hey AI, learn about us".
+- host: https://app.klue.com
+  probed: '2026-08-14'
   note: >-
-    No llms.txt, but Klue does publish a human/AI-oriented company fact page at
-    https://klue.com/llm-info, linked from the site footer as "Hey AI, learn about us".
+    The application host is where Klue's real discovery surface lives. It serves
+    two anonymous 200 documents; every other /.well-known path returns a 302 to
+    /account/signin, which is the application's catch-all auth redirect and is
+    therefore recorded as a miss, not a hit.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+    file: klue-openid-configuration.json
+    standard: OpenID Connect Discovery 1.0
+    content_type: application/json; charset=utf-8
+    summary: >-
+      Issuer https://app.klue.com; authorization_code + refresh_token grants;
+      PKCE S256; RS256 ID tokens; pairwise subjects; RFC 7591 dynamic client
+      registration endpoint; 23 published scopes (see scopes/klue-scopes.yml).
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+    file: klue-oauth-authorization-server.json
+    standard: RFC 8414
+    content_type: application/json; charset=utf-8
+    summary: Byte-identical to the openid-configuration document.
+  - path: /.well-known/security.txt
+    status: 200
+    file: klue-security.txt
+    standard: RFC 9116
+    note: same document as klue.com; Canonical field points at https://klue.com/.well-known/security.txt
+  - path: /.well-known/oauth-protected-resource
+    status: 302
+    note: 302 to /account/signin — auth catch-all, not a document
+  - path: /.well-known/api-catalog
+    status: 302
+    note: 302 to /account/signin — auth catch-all, not a document
+  - path: /.well-known/ai-plugin.json
+    status: 302
+    note: 302 to /account/signin — auth catch-all, not a document
+  - path: /.well-known/agent-card.json
+    status: 302
+    note: 302 to /account/signin — auth catch-all, not an agent card
+  - path: /.well-known/agent.json
+    status: 302
+    note: 302 to /account/signin — auth catch-all, not an agent card
+  - path: /llms.txt
+    status: 302
+- host: https://help.app.klue.com
+  probed: '2026-08-14'
+  note: >-
+    The help centre host proxies the same Doorkeeper discovery documents, but
+    rewrites the endpoint hosts to help.app.klue.com while keeping
+    issuer https://app.klue.com. Recorded for completeness; app.klue.com is the
+    canonical issuer and is what scopes/klue-scopes.yml cites.
+  documents:
+  - path: /.well-known/openid-configuration
+    status: 200
+  - path: /.well-known/oauth-authorization-server
+    status: 200
+  - path: /.well-known/security.txt
+    status: 200
+  - path: /.well-known/agent-card.json
+    status: 302
+  - path: /.well-known/agent.json
+    status: 302
+files:
+- klue-security.txt
+- klue-openid-configuration.json
+- klue-oauth-authorization-server.json
+related:
+  scopes: scopes/klue-scopes.yml
+  authentication: authentication/klue-authentication.yml
+  vulnerability_disclosure: security/klue-vulnerability-disclosure.yml

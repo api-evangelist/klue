@@ -1,7 +1,50 @@
-generated: '2026-07-19'
+generated: '2026-08-14'
 method: searched
 source: https://klue.com/product/security
 standards:
+- id: oidc-discovery
+  conforms: true
+  evidence: >-
+    https://app.klue.com/.well-known/openid-configuration returns HTTP 200
+    anonymously with a valid OpenID Connect Discovery 1.0 document: issuer,
+    authorization/token/revocation/introspection/userinfo endpoints, jwks_uri,
+    RS256 id_token signing, pairwise subject types, and 23 scopes.
+  source: well-known/klue-openid-configuration.json
+- id: rfc8414-oauth-authorization-server-metadata
+  conforms: true
+  evidence: >-
+    https://app.klue.com/.well-known/oauth-authorization-server returns HTTP 200
+    with a document byte-identical to the OIDC discovery document.
+  source: well-known/klue-oauth-authorization-server.json
+- id: rfc7591-dynamic-client-registration
+  conforms: true
+  evidence: >-
+    registration_endpoint https://app.klue.com/oauth/register is advertised in the
+    discovery document and is live — an anonymous POST with an invalid
+    redirect_uri returns HTTP 400 invalid_redirect_uri rather than 404.
+  source: well-known/klue-openid-configuration.json
+- id: rfc7636-pkce
+  conforms: true
+  evidence: >-
+    code_challenge_methods_supported lists S256 and plain. Note that `plain` is
+    still offered, which RFC 8252/current OAuth BCP discourages.
+  source: well-known/klue-openid-configuration.json
+- id: rfc7009-token-revocation
+  conforms: true
+  evidence: revocation_endpoint https://app.klue.com/oauth/revoke advertised in discovery.
+  source: well-known/klue-openid-configuration.json
+- id: rfc7662-token-introspection
+  conforms: true
+  evidence: introspection_endpoint https://app.klue.com/oauth/introspect advertised in discovery.
+  source: well-known/klue-openid-configuration.json
+- id: scim2
+  conforms: likely
+  evidence: >-
+    The published OAuth scope set includes scim:read and scim:edit, and the kluein
+    GitHub organization maintains a fork of scimitar, a Rails SCIM v2 endpoint
+    implementation. Klue publishes no SCIM documentation or base path publicly, so
+    this is recorded as `likely` rather than `true`.
+  source: well-known/klue-openid-configuration.json
 - id: soc2-type-ii
   conforms: true
   evidence: >-
@@ -71,10 +114,16 @@ standards:
   conforms: unknown
   evidence: Not claimed on Klue's public security page.
 - id: oauth2
-  conforms: unknown
+  conforms: true
   evidence: >-
-    No public OAuth 2.0 authorization surface documented for the API; API access
-    uses bearer API keys. /.well-known/oauth-authorization-server returns 404.
+    CORRECTED 2026-08-14. The previous round recorded this as unknown because
+    klue.com/.well-known/oauth-authorization-server returns 404 — but the
+    authorization server is on the APPLICATION host, not the marketing host.
+    https://app.klue.com/.well-known/oauth-authorization-server returns HTTP 200
+    with authorization_code + refresh_token grants, PKCE, and 23 scopes. Klue
+    documents none of this in prose; the discovery document is the only public
+    statement of it.
+  source: well-known/klue-oauth-authorization-server.json
 - id: rfc9457-problem-details
   conforms: unknown
   evidence: No public error reference or OpenAPI document to evaluate.

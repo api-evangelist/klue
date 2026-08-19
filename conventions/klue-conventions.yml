@@ -1,15 +1,26 @@
-generated: '2026-07-19'
+generated: '2026-08-14'
 method: searched
 source: https://github.com/kluein/klue-mcp-public
 docs: https://klue.com/blog/how-to-connect-klue-to-chatgpt
 scope: >-
   Cross-cutting semantics for the Klue Content API and the Klue MCP server.
   Klue publishes no public OpenAPI document, so nothing here is derived from a
-  spec; every entry is taken from Klue's public documentation, blog posts, or
-  its own published MCP Agent Skill.
+  spec; every entry is taken from Klue's public documentation, blog posts, its
+  own published MCP Agent Skill, or — new in this round — the anonymous OAuth /
+  OpenID Connect discovery document Klue serves from its application host.
 authentication:
-  style: bearer-api-key
+  style: [bearer-api-key, oauth2-authorization-code]
   header: Authorization
+  oauth2:
+    discovery: https://app.klue.com/.well-known/openid-configuration
+    grant: authorization_code
+    refresh: true
+    pkce: S256
+    dynamic_client_registration: https://app.klue.com/oauth/register
+    scopes: scopes/klue-scopes.yml
+    note: >-
+      Klue documents the bearer API key in prose and documents the OAuth surface
+      nowhere — the discovery document is the only public description of it.
   detail: authentication/klue-authentication.yml
 idempotency:
   supported: unknown
@@ -49,7 +60,13 @@ error_envelope:
   note: No public error reference or problem-details envelope is published.
 rate_limits:
   documented: false
-  note: No public rate-limit documentation or rate-limit response headers published.
+  note: >-
+    No public rate-limit documentation and no rate-limit response headers. Not
+    observable either — every path requires auth before headers are emitted.
+  detail: rate-limits/klue-rate-limits.yml
+  agent_call_budget: >-
+    The only throttling contract Klue publishes is client-side: its Agent Skill
+    hard-stops the quick-answer path after two tool calls.
 tracing:
   request_id_header: unknown
 citations:
@@ -69,6 +86,11 @@ agent_safety:
   source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
 related:
   authentication: authentication/klue-authentication.yml
+  scopes: scopes/klue-scopes.yml
   lifecycle: lifecycle/klue-lifecycle.yml
   mcp: mcp/klue-mcp.yml
   skills: skills/_index.yml
+  rate_limits: rate-limits/klue-rate-limits.yml
+  plans: plans/klue-plans-pricing.yml
+  packages: packages/klue-packages.yml
+  well_known: well-known/klue-well-known.yml

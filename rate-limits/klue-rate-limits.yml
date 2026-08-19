@@ -1,0 +1,46 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  https://help.app.klue.com/ (gated), https://klue.com/blog/how-to-connect-klue-to-chatgpt,
+  https://klue.com/blog/introducing-klue-mcp-server, github.com/kluein/klue-mcp-public
+limit_count: 0
+rate_limits: []
+finding: >-
+  Klue publishes no rate limits. This is an honest zero. Klue's only public API
+  documentation is two marketing blog posts and its own MCP Agent Skill, and none
+  of them states a request ceiling, a window, a burst allowance, a quota, or a
+  429 contract. The Content API reference that would carry them lives inside the
+  authenticated help centre (help.app.klue.com), where every path below the root
+  returns 302 to /account/signin, so the numbers could not be read even if they
+  are documented there.
+response_headers:
+  documented: false
+  observed: false
+  note: >-
+    No X-RateLimit-*, RateLimit-* or Retry-After headers are documented. They
+    could not be observed either: every Klue API path requires a bearer token or
+    an OAuth access token, and unauthenticated requests to app.klue.com return
+    302 to /account/signin or a JSON 404 before any rate-limit header is emitted.
+    An agent integrating Klue therefore has no runtime backoff signal it can rely
+    on from documentation alone.
+exhaustion_status_code: null
+client_side_guidance:
+  documented: true
+  note: >-
+    Klue's published Agent Skill imposes a CALL BUDGET rather than a rate limit —
+    the quick-answer path is "a hard stop after two tool calls". This is an
+    agent-behaviour rule Klue authored, not a server-enforced limit, and it is
+    recorded here because it is the only throttling contract Klue publishes.
+  source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
+x-evidence:
+- url: https://help.app.klue.com/en/
+  http_status: 302
+  redirect_to: https://help.app.klue.com/account/signin?redirectTo=%2Fen
+  fetched: '2026-08-14'
+- url: https://app.klue.com/api/mcp
+  http_status: 404
+  fetched: '2026-08-14'
+  note: anonymous POST returns {"status":404,"error":"Not Found"} with no rate-limit headers
+related:
+  conventions: conventions/klue-conventions.yml
+  authentication: authentication/klue-authentication.yml

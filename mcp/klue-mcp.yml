@@ -11,35 +11,33 @@ server:
   transport: http
   url: null
   url_note: >-
-    Klue does not publish the MCP endpoint URL on its public marketing site.
-    Setup is documented inside the authenticated application and the customer
-    help centre (help.app.klue.com). The application host is https://app.klue.com
-    and all MCP paths probed there return a 302 to /account/signin, which is a
-    catch-all auth redirect and therefore NOT evidence of a specific path.
-  authentication: bearer-api-key
-  authentication_note: >-
-    Klue API keys are created by an Admin under Apps & Integrations and passed
-    as a Bearer token. See authentication/klue-authentication.yml.
+    Klue does not publish the MCP endpoint URL on its public marketing site. Setup
+    is documented inside the authenticated application and the customer help centre
+    (help.app.klue.com), which 302s to /account/signin on every path below the root.
+    Re-probed 2026-08-14: mcp.klue.com does not resolve in DNS, and an anonymous
+    JSON-RPC tools/list POST to /mcp, /api/mcp, /mcp/admin and /v1/mcp on
+    app.klue.com returns a JSON 404 ({"status":404,"error":"Not Found"}), not a 302
+    — so those specific paths are affirmatively absent rather than merely gated.
+    No endpoint URL is recorded, because guessing one would read as a verified
+    agent surface.
+  authentication: [bearer-api-key, oauth2]
+  authentication_note: Klue API keys are created by an Admin under Apps & Integrations and passed as a
+    Bearer token. See authentication/klue-authentication.yml.
   read_write: true
-  read_write_note: >-
-    Klue states it is the only competitive intelligence platform whose MCP server
-    supports both read and writeback. Mutating tools are exposed on the admin
-    surface of the v1 connector.
+  read_write_note: Klue states it is the only competitive intelligence platform whose MCP server supports
+    both read and writeback. Mutating tools are exposed on the admin surface of the v1 connector.
 surfaces:
 - name: v1
-  description: >-
-    Cards / battlecards connector. Detected by the presence of `search` + `fetch`
-    with cards/battlecards tools and no v2 signals.
+  description: Cards / battlecards connector. Detected by the presence of `search` + `fetch` with cards/battlecards
+    tools and no v2 signals.
   source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v1-deep.md
 - name: v2
-  description: >-
-    Smart Answers / agent insights connector (newer surface). Detected by the
-    presence of `match-smart-answers` or `search_agent_insights`.
+  description: Smart Answers / agent insights connector (newer surface). Detected by the presence of `match-smart-answers`
+    or `search_agent_insights`.
   source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/resources/v2-deep.md
 - name: win-loss
-  description: >-
-    Win/loss transcript and report tools. Can appear alongside either the v1 or
-    the v2 connector; not a routing signal on their own.
+  description: Win/loss transcript and report tools. Can appear alongside either the v1 or the v2 connector;
+    not a routing signal on their own.
   source: https://raw.githubusercontent.com/kluein/klue-mcp-public/main/SKILL.md
 tools:
 - name: search
@@ -116,11 +114,74 @@ tools:
   kind: retrieval
 parameters:
   date_filters:
-    tools: [search, extract_battlecards]
-    params: [updatedAfter, updatedBefore]
+    tools:
+    - search
+    - extract_battlecards
+    params:
+    - updatedAfter
+    - updatedBefore
     format: ISO8601
     example: '2024-11-01T00:00:00Z'
 tested_clients:
 - OpenAI Agent Builder
 - Microsoft Copilot Studio
 - Claude Desktop
+deployment:
+  mode: remote
+  endpoint: null
+  install: null
+  package: null
+  auth: oauth
+  verified: searched
+  checked: '2026-08-14'
+  endpoint_note: >-
+    Klue ships a real hosted MCP server but does NOT publish its URL. The mode is
+    recorded as `remote` and the endpoint is left null rather than guessed. Two
+    independent public facts establish `remote`: (1) Klue states the server has
+    been tested with OpenAI Agent Builder, Microsoft Copilot Studio and Claude
+    Desktop, and the first two are cloud connector platforms that can only consume
+    a hosted HTTPS endpoint — there is no stdio path into them; (2) Klue ships no
+    installable package anywhere (see packages/klue-packages.yml, package_count 0),
+    so local-stdio is ruled out. Klue's blog refers to "one of Klue's MCP
+    endpoints" and an "admin MCP endpoint", i.e. more than one hosted URL.
+  auth_note: >-
+    Recorded as oauth on probed evidence, not on a vendor claim.
+    https://app.klue.com/.well-known/openid-configuration returns HTTP 200
+    anonymously and publishes the scopes `stak_play_mcp:read` and
+    `stak_play_mcp:edit` — the only scopes in the set whose names contain "mcp" —
+    alongside `content:read`, `content:edit` and `win_loss:read`, which map onto
+    this server's tool families. The same document advertises RFC 7591 dynamic
+    client registration at /oauth/register (verified live: an anonymous POST with
+    an invalid redirect_uri returns 400 invalid_redirect_uri), which is the
+    registration mechanism remote MCP clients use. A bearer API key is
+    additionally documented for the Content API. See scopes/klue-scopes.yml.
+  probe:
+    date: '2026-08-14'
+    result: not-publicly-reachable
+    dns:
+    - {host: mcp.klue.com, resolves: false}
+    paths_probed:
+    - {url: 'https://app.klue.com/mcp', method: POST, jsonrpc: tools/list, status: 404}
+    - {url: 'https://app.klue.com/api/mcp', method: POST, jsonrpc: tools/list, status: 404}
+    - {url: 'https://app.klue.com/mcp/admin', method: POST, jsonrpc: tools/list, status: 404}
+    - {url: 'https://app.klue.com/v1/mcp', method: POST, jsonrpc: tools/list, status: 404}
+    - {url: 'https://mcp.klue.com/mcp', method: GET, status: 000, note: host does not resolve}
+    note: >-
+      tools/list could not be run against a live endpoint, so the tools[] list
+      below remains searched from Klue's own published Agent Skill rather than
+      introspected. Input schemas would require an authenticated tools/list.
+  supersedes:
+    checked: '2026-08-12'
+    mode: none
+    endpoint: https://app.klue.com
+    source: catalog MCP census
+    correction: >-
+      The census recorded mode `none` with an endpoint set, which is
+      self-contradictory: `none` means nobody ships a server, and Klue plainly
+      does. The census had probed https://app.klue.com as if it were the MCP
+      endpoint; it is the application root, not an MCP URL. Corrected to
+      `remote` with a null endpoint.
+oauth:
+  discovery: https://app.klue.com/.well-known/openid-configuration
+  scopes: scopes/klue-scopes.yml
+  mcp_scopes: [stak_play_mcp:read, stak_play_mcp:edit]

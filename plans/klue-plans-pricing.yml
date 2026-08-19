@@ -1,0 +1,42 @@
+generated: '2026-08-14'
+method: searched
+source: https://klue.com/pricing
+plan_count: 0
+plans: []
+finding: >-
+  Klue publishes no pricing. https://klue.com/pricing does not exist as a page —
+  it returns HTTP 301 and lands on the Klue homepage — and no plan, tier, seat
+  price, quota or overage figure appears anywhere on Klue's public site. Every
+  commercial call to action routes to "Get a demo", so pricing is
+  contact-sales-only and is negotiated per account.
+pricing_model:
+  published: false
+  motion: contact-sales
+  call_to_action: https://klue.com/engage/get-demo
+  self_serve_purchase: false
+  free_tier: false
+  trial_published: false
+api_pricing:
+  published: false
+  note: >-
+    Neither the Klue Content API nor the Klue MCP server carries separate,
+    published pricing. Klue's security page markets "Dedicated CSM, SLA + Support"
+    as an enterprise entitlement, which implies tiering exists commercially, but
+    Klue names no tiers publicly.
+tier_signals:
+  note: >-
+    Recorded as SIGNALS ONLY, not as plans — these are entitlements Klue names in
+    marketing copy without attaching them to a named, priced tier.
+  signals:
+  - Dedicated CSM, SLA + Support (enterprise entitlement)
+    # source: https://klue.com/product/security
+  - Single Sign On / SAML 2.0 (enterprise-ready suite)
+    # source: https://klue.com/product/security
+x-evidence:
+- url: https://klue.com/pricing
+  http_status: 301
+  fetched: '2026-08-14'
+  note: redirects to https://klue.com/ — there is no pricing page
+- url: https://klue.com/engage/get-demo
+  http_status: 200
+  fetched: '2026-08-14'

@@ -1,4 +1,4 @@
-generated: '2026-07-19'
+generated: '2026-08-14'
 method: searched
 source: https://kluestatus.com/
 versioning:
@@ -33,11 +33,64 @@ status_page:
   feeds:
   - https://kluestatus.com/history.atom
   - https://kluestatus.com/history.rss
-  observed_incident:
-    title: Data Sync Integration Issues
-    state: Identified
-    date: '2026-06-12T18:00:00Z'
+  incident_history:
+    method: searched
+    source: https://kluestatus.com/history.rss
+    fetched: '2026-08-14'
+    format: RSS + Atom
     note: >-
-      Observed on the status page at probe time; recorded as evidence the page is
-      live and actively maintained.
+      Klue's Statuspage publishes a dated incident feed. This is the closest thing
+      Klue has to a public, machine-readable change record — it is an availability
+      log, NOT a changelog, and no changelog/ artifact is emitted because Klue
+      publishes no dated release notes (klue.com/changelog, /product-updates,
+      /release-notes and /whats-new all return 404).
+    recent_entries:
+    - {title: Data Sync Integration Issues, date: '2026-06-14'}
+    - {title: slow page loads, date: '2026-03-17'}
+    - {title: platform instability, date: '2026-03-10'}
+    - {title: platform issues due to Heroku outage, date: '2026-02-18'}
+    - {title: Elevated Ask Klue Failures and Timeouts, date: '2026-01-29'}
+    - {title: Cloudflare failing to route requests, date: '2025-11-18'}
+    - {title: Impact from AWS Downtime, date: '2025-10-21'}
+    - {title: Klue App Performance Degradation, date: '2025-08-26'}
+    - {title: Klue App Performance Degradation, date: '2025-08-20'}
+    - {title: Klue App Performance Degradation, date: '2025-06-13'}
+    - {title: Database Maintenance, date: '2024-11-03'}
+security_incident:
+  method: searched
+  disclosed: '2026-06-18'
+  url: https://klue.com/blog/an-update-on-recent-klue-security-incident
+  http_status: 200
+  title: An Update on the Recent Klue Security Incident
+  detected: '2026-06-12'
+  summary: >-
+    Klue disclosed that an attacker gained access through a compromised legacy
+    credential associated with an integration service and obtained OAuth tokens
+    used to connect Klue with third-party platforms, including Salesforce. Klue
+    states data within a number of connected customer environments was accessed,
+    and that it found no evidence customer content stored within the Klue platform
+    itself was impacted.
+  response:
+  - revoked affected credentials and tokens
+  - removed unauthorized code
+  - disabled potentially impacted integrations
+  - notified law enforcement
+  - engaged CrowdStrike for forensic validation
+  - direct communication with affected customers
+  commitments: >-
+    Klue committed to a review of its security controls, credential management
+    practices, monitoring capabilities and deployment processes.
+  contact: security@klue.com
+  correlates_with:
+    status_page_incident: Data Sync Integration Issues
+    date: '2026-06-14'
+    note: >-
+      The status-page incident and the disclosure post describe the same event
+      window; recorded as corroboration between two Klue-published surfaces.
+  api_relevance: >-
+    Recorded in lifecycle/ because it is an OAuth-token and integration-layer
+    event, not a marketing item: it is the operational history of the same
+    authorization server documented in scopes/klue-scopes.yml and
+    authentication/klue-authentication.yml. Klue published the disclosure on its
+    own domain — the transparency itself is the operational signal.
 deprecated_operations: []

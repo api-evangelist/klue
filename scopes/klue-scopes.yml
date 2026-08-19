@@ -1,0 +1,157 @@
+generated: '2026-08-14'
+method: probed
+source: https://app.klue.com/.well-known/openid-configuration
+docs: null
+docs_note: >-
+  Klue publishes no public scopes / permissions reference page. The scope list
+  below is read verbatim from Klue's own OpenID Connect discovery document,
+  which app.klue.com serves anonymously at HTTP 200. Descriptions are NOT
+  published by Klue; where a description appears below it is marked as an
+  API Evangelist reading of the scope name and is not a Klue claim.
+scope_count: 23
+schemes:
+- name: klue-oauth2
+  type: oauth2
+  source: https://app.klue.com/.well-known/openid-configuration
+  issuer: https://app.klue.com
+  implementation_note: >-
+    The kluein GitHub organization maintains a fork of devise-doorkeeper
+    (https://github.com/kluein/devise-doorkeeper), the Rails Doorkeeper OAuth2
+    provider integration; the endpoint layout below matches a Doorkeeper
+    deployment.
+  flows:
+  - flow: authorizationCode
+    authorizationUrl: https://app.klue.com/oauth/authorize
+    tokenUrl: https://app.klue.com/oauth/token
+    refreshUrl: https://app.klue.com/oauth/token
+  grant_types_supported:
+  - authorization_code
+  - refresh_token
+  response_types_supported:
+  - code
+  code_challenge_methods_supported:
+  - plain
+  - S256
+  token_endpoint_auth_methods_supported:
+  - client_secret_basic
+  - client_secret_post
+  endpoints:
+    authorization: https://app.klue.com/oauth/authorize
+    token: https://app.klue.com/oauth/token
+    revocation: https://app.klue.com/oauth/revoke
+    introspection: https://app.klue.com/oauth/introspect
+    userinfo: https://app.klue.com/oauth/userinfo
+    jwks: https://app.klue.com/oauth/discovery/keys
+    dynamic_client_registration: https://app.klue.com/oauth/register
+scopes:
+- scope: openid
+  description: OpenID Connect authentication; returns an RS256-signed ID token.
+  standard: OpenID Connect Core 1.0
+  sources: [well-known/klue-openid-configuration.json]
+- scope: content:read
+  description: >-
+    Read access to Klue content (cards, battlecards). API Evangelist reading —
+    Klue publishes no description; the name aligns with the read surface of the
+    Klue Content API and the v1 MCP connector.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: content:edit
+  description: >-
+    Write access to Klue content. API Evangelist reading — aligns with the
+    create/update/delete card and battlecard tooling Klue describes as the
+    "admin MCP endpoint" writeback surface.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: win_loss:read
+  description: >-
+    Read access to win-loss interviews, transcripts and reports. API Evangelist
+    reading — aligns with the win-loss MCP tool family.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: deal_answers:read
+  description: >-
+    Read access to deal answers. API Evangelist reading — likely the Smart
+    Answers / Deal Tips surface.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: auto_insights:read
+  description: >-
+    Read access to Auto Insights, Klue's AI-generated insight pipeline.
+    API Evangelist reading; the v2 MCP connector exposes search_agent_insights.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: deal_context:read
+  description: Read access to deal context. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: transcript:edit
+  description: Write access to interview transcripts. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: crm:edit
+  description: >-
+    Write access to the connected CRM surface. API Evangelist reading; Klue
+    integrates with Salesforce, HubSpot and MS Dynamics.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: stak_play_mcp:read
+  description: >-
+    Read scope for Klue's MCP surface. API Evangelist reading — this is the only
+    scope in the published set whose name contains "mcp", and it is the strongest
+    public evidence that the Klue MCP server authorizes over OAuth rather than
+    only over a bearer API key.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: stak_play_mcp:edit
+  description: >-
+    Write/writeback scope for Klue's MCP surface. API Evangelist reading; matches
+    Klue's claim of being the only competitive intelligence MCP server supporting
+    writeback.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: scim:read
+  description: >-
+    SCIM 2.0 read. API Evangelist reading; the kluein GitHub organization
+    maintains a fork of scimitar, a Rails SCIM v2 endpoint implementation.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: scim:edit
+  description: SCIM 2.0 write (user/group provisioning). API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: slack
+  description: Slack integration scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: teams
+  description: Microsoft Teams integration scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: connect
+  description: Generic connect/integration scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: usage_reports:read
+  description: Read access to usage reporting. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: service_read
+  description: Service-to-service read scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: service_write
+  description: Service-to-service write scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: customer_success
+  description: Internal customer-success scope. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: impersonate
+  description: >-
+    User-impersonation scope. API Evangelist reading; an internal/support
+    capability, not expected to be grantable to customer integrations.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: alpha:read
+  description: Read access to alpha/preview features. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+- scope: alpha:edit
+  description: Write access to alpha/preview features. API Evangelist reading.
+  sources: [well-known/klue-openid-configuration.json]
+x-evidence:
+- url: https://app.klue.com/.well-known/openid-configuration
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-08-14'
+  file: well-known/klue-openid-configuration.json
+- url: https://app.klue.com/.well-known/oauth-authorization-server
+  http_status: 200
+  content_type: application/json; charset=utf-8
+  fetched: '2026-08-14'
+  file: well-known/klue-oauth-authorization-server.json
+  note: byte-identical to the openid-configuration document
+related:
+  authentication: authentication/klue-authentication.yml
+  mcp: mcp/klue-mcp.yml
+  well_known: well-known/klue-well-known.yml

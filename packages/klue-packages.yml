@@ -1,0 +1,85 @@
+generated: '2026-08-14'
+method: searched
+source: >-
+  registry.npmjs.org search + exact lookups, pypi.org, rubygems.org,
+  github.com/kluein repository listing, and Klue's public documentation
+package_count: 0
+packages: []
+finding: >-
+  Klue ships no first-party client library on any public package registry. This
+  is an honest zero, not an unchecked field: every registry below was queried
+  directly and every candidate name resolved to either a 404 or a third-party
+  package with no relationship to Klue. Consumers of the Klue Content API are
+  expected to call it directly with a bearer API key, and consumers of the Klue
+  MCP server connect over the wire rather than by installing a package — there is
+  no npx/pip install path for the MCP server either.
+registries_checked:
+- registry: npm
+  method: search + exact lookup
+  queries: [klue, "@klue/mcp", klue-mcp, "@kluein/mcp", klue-sdk, "@klue/sdk"]
+  result: no first-party package
+- registry: pypi
+  method: exact lookup
+  queries: [klue, klue-mcp, klue-api, pyklue]
+  result: all 404
+- registry: rubygems
+  method: exact lookup
+  queries: [klue, klue-api, klue_api]
+  result: all 404
+- registry: maven-central
+  method: not applicable
+  result: Klue publishes no JVM client
+- registry: nuget
+  method: not applicable
+  result: Klue publishes no .NET client
+- registry: pkg.go.dev
+  method: not applicable
+  result: Klue publishes no Go module
+- registry: crates.io
+  method: not applicable
+  result: Klue publishes no Rust crate
+- registry: packagist
+  method: not applicable
+  result: Klue publishes no PHP package
+false_positives:
+- name: klue
+  registry: npm
+  url: https://www.npmjs.com/package/klue
+  version: 0.0.1
+  published: '2017-09-07'
+  official: false
+  reason: >-
+    Placeholder package, description "TBA", no repository, no homepage,
+    maintainer "daretodave" with no connection to Klue (klue.com). Name squat.
+- name: klue-cli
+  registry: npm
+  url: https://www.npmjs.com/package/klue-cli
+  version: 1.0.2
+  published: '2022-12-06'
+  official: false
+  reason: >-
+    No description, no repository, no homepage, maintainer
+    "rodrigoantinarelli". Unrelated to Klue the competitive enablement platform.
+    Recorded here so a future pass does not mistake it for a Klue CLI.
+github_organization:
+  url: https://github.com/kluein
+  repository_count: 14
+  first_party_original_repositories:
+  - name: klue-mcp-public
+    url: https://github.com/kluein/klue-mcp-public
+    contents: Agent Skill (SKILL.md + four resource guides) for the Klue MCP server
+    is_package: false
+    note: >-
+      Documentation only — no installable artifact, no package manifest, no
+      release. Saved verbatim in skills/ and re-verified byte-identical on
+      2026-08-14.
+  note: >-
+    Every other repository in the kluein organization is a fork of a third-party
+    open source project (devise-doorkeeper, scimitar, ssrf_filter, airbrake,
+    posthog-ruby, alloy-editor, html_to_plain_text, html-to-mrkdwn, authority,
+    dbt-mcp, UCPhrase-exp and two Heroku buildpacks). These are dependencies Klue
+    consumes, not client libraries Klue publishes, and none is a Klue SDK.
+sdk_pointer_emitted: false
+sdk_pointer_reason: >-
+  No official client library exists, so no type: SDKs pointer is wired. Emitting
+  one would credit Klue with an SDK surface it does not ship.
