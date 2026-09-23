@@ -1,0 +1,31 @@
+# Front Door AI Index — klue — 2026-09-17
+# AI vocabulary counted on the provider's root page. Generated; do not edit.
+# `score` is null unless ownership is `own` — see front_door_ai.py.
+front_door_ai:
+  slug: klue
+  lexicon_version: '1.0'
+  probed_at: '2026-09-17'
+  host: klue.com
+  final_host: klue.com
+  ownership: own
+  owner: klue
+  shares_host_with: null
+  inherited_from: null
+  verdict: scored
+  score: 15
+  host_score: 15
+  density: 6.02
+  words: 2491
+  tiers:
+    agentic: 0
+    core: 9
+    model: 6
+  ambiguous: 23
+  top_terms:
+    intelligence: 20
+    AI: 8
+    Claude: 4
+    ChatGPT: 2
+    agent: 2
+    LLMs: 1
+    smart: 1
