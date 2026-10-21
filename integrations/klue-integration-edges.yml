@@ -11,9 +11,42 @@ checked:
 - https://officialskills.sh/sitemap.xml
 - https://skillsmp.com/sitemap.xml
 - https://www.skills.sh/sitemap.xml
+- hubspot/integrations/hubspot-integration-edges.yml
 source:
 - okta/integrations/okta-integration-edges.yml
 edges:
+- partner_name: Agent Skills (own GitHub org)
+  partner: null
+  partner_match: register
+  type: register
+  direction: provider-built
+  category: Agent Skills package
+  evidence: https://github.com/kluein/klue-mcp-public
+  channel: provider-built
+  relationship: compatible
+  shape: agent-skills
+  evidence_kind: own-repo
+  degree: skill-repo
+  report_only: true
+  agent_skills:
+    org: kluein
+    current: true
+    repos:
+    - repo: kluein/klue-mcp-public
+      archived: false
+      lapsed: false
+      pushed: '2026-10-07'
+  contract_reference:
+    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
+    spec_file: null
+    standard: Agent Skills (agentskills.io)
+    role: agent-skills-repo
+    matched_org: kluein
+    matched_by: org-profile-domain:klue.com
+    detected_by: sweep-agent-skills.py
+    detected: '2026-10-20'
+  detected_by: sweep-agent-skills.py
+  first_seen: '2026-10-20'
 - partner_name: Okta (own)
   partner: okta
   partner_match: mirror
@@ -94,35 +127,20 @@ edges:
   detected: '2026-10-18'
   detected_by: mirror-platform-listings.py
   category: Zoom app
-- partner_name: Agent Skills (own GitHub org)
-  partner: null
-  partner_match: register
-  type: register
-  direction: provider-built
-  category: Agent Skills package
-  evidence: https://github.com/kluein/klue-mcp-public
-  channel: provider-built
-  relationship: compatible
-  shape: agent-skills
-  evidence_kind: own-repo
-  degree: skill-repo
-  report_only: true
-  agent_skills:
-    org: kluein
-    current: true
-    repos:
-    - repo: kluein/klue-mcp-public
-      archived: false
-      lapsed: false
-      pushed: '2026-10-07'
-  contract_reference:
-    register: 'provider''s own GitHub org (GitHub REST API: repo + git tree holds SKILL.md)'
-    spec_file: null
-    standard: Agent Skills (agentskills.io)
-    role: agent-skills-repo
-    matched_org: kluein
-    matched_by: org-profile-domain:klue.com
-    detected_by: sweep-agent-skills.py
-    detected: '2026-10-20'
-  detected_by: sweep-agent-skills.py
-  first_seen: '2026-10-20'
+- partner_name: HubSpot (own)
+  partner: hubspot
+  partner_match: mirror
+  mirror_match: domain
+  type: marketplace
+  relationship: platform-app
+  direction: third-party
+  channel: partner-built
+  marketplace: own
+  evidence: https://ecosystem.hubspot.com/marketplace/listing/klue-data-sync
+  mirror_of: hubspot/integrations/hubspot-integration-edges.yml
+  apps:
+  - Klue Data Sync
+  listing_count: 1
+  detected: '2026-10-21'
+  detected_by: mirror-platform-listings.py
+  category: SALES_ENABLEMENT
