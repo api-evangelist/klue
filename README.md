@@ -64,6 +64,122 @@
 > Full detail: **[Where this data comes from](https://apievangelist.com/about/where-our-data-comes-from)**
 <!-- API-EVANGELIST-PROVENANCE:END -->
 
-Klue is a company surfaced as a portfolio company of craft-ventures and added to the API Evangelist network as a stub for enrichment. Sector: saas. This profile is a lead awaiting the enrichment pipeline.
+Klue is a Vancouver, BC based B2B SaaS company founded in 2015 that builds a competitive enablement platform combining competitive intelligence and win-loss analysis for revenue teams. The platform collects, curates and distributes competitor intel as cards and battlecards, and layers AI on top through its Compete Agent, Auto Insights, Deal Tips and Smart Answers products, alongside a win-loss suite spanning human expert interviews, an AI interviewer and blindspot interviews. Klue exposes its curated intelligence to developers and AI agents through a Content API secured with bearer API keys and a production Model Context Protocol server offering two connector surfaces plus read and writeback tooling, with an Agent Skill published openly on GitHub. It integrates with Salesforce, Gong, Slack, Microsoft Teams, HubSpot, Highspot, Seismic, Guru and others, and maintains SOC 2 Type II compliance.
 
-Backed by: craft-ventures — https://klue.com
+**Areas:** Company · Software-as-a-Service · Competitive Intelligence · Competitive Enablement · Sales Enablement · Win-Loss Analysis · Market Intelligence · Battlecards · Agents · MCP
+
+## Klue on APIs.io
+
+Everything profiled for Klue is published on APIs.io rather than in this repository. Start at the provider page — **[apis.io/providers/klue/](https://apis.io/providers/klue/)** — or go straight to one of the APIs or properties below.
+
+### APIs (2)
+
+- [Klue Content API](https://apis.io/apis/klue/content-api/) — The Klue Content API returns an organization's published Klue cards and battlecards to external tools and agents, filterable by competitor, battlecard, tag…
+- [Klue MCP Server](https://apis.io/apis/klue/mcp/) — Klue's Model Context Protocol server lets internal AI agents and enterprise copilots retrieve permissioned competitive intelligence from Klue. It ships two…
+
+### Published properties
+
+Each property below is a page on APIs.io carrying the machine-readable artifact and what it says.
+
+#### MCP servers (1)
+
+Model Context Protocol servers that expose the API to agents.
+
+- [klue](https://apis.io/servers/klue/klue/)
+
+#### Security (4)
+
+Authentication, trust centre, and vulnerability disclosure.
+
+- [Klue Authentication](https://apis.io/security/klue/klue-authentication/)
+- [Klue Domain Security](https://apis.io/security/klue/klue-domain-security/)
+- [Klue Trust Center](https://apis.io/security/klue/klue-trust-center/)
+- [Klue Vulnerability Disclosure](https://apis.io/security/klue/klue-vulnerability-disclosure/)
+
+#### OAuth scopes (1)
+
+The permissions the API asks for.
+
+- [Klue Scopes](https://apis.io/scopes/klue/klue-scopes/)
+
+#### Plans and pricing (1)
+
+Published plans, tiers and prices.
+
+- [Klue Plans Pricing](https://apis.io/plans/klue/klue-plans-pricing/)
+
+#### Rate limits (1)
+
+Published request limits.
+
+- [Klue Rate Limits](https://apis.io/rate-limits/klue/klue-rate-limits/)
+
+## Where to find this API
+
+Links to the company's own pages. This repository publishes no copy of their specifications — the canonical document is theirs and lives at the URLs below.
+
+- [Website](https://klue.com)
+- [Documentation](https://help.app.klue.com/)
+- [Getting started](https://klue.com/blog/how-to-connect-klue-to-chatgpt)
+- [Sign up](https://klue.com/engage/get-demo)
+- [Support](https://klue.com/contact)
+- [Blog](https://klue.com/articles)
+- [Security](https://klue.com/.well-known/security.txt)
+- [Compliance](https://klue.com/product/security)
+- [Terms of service](https://klue.com/terms)
+- [Privacy policy](https://klue.com/privacy)
+- [GitHub](https://github.com/kluein)
+- [Status](https://kluestatus.com/)
+
+## API Evangelist rating
+
+**Kin Score 34.7** — thin · rubric 0.24.0 · scored 2026-10-17
+
+| Facet | Score |
+|---|---|
+| Discoverability | 73.2 |
+| Contract quality | 0.0 |
+| Contract governance | 18.2 |
+| Operational transparency | 23.7 |
+| Developer ergonomics | 38.1 |
+| Access clarity | 50.0 |
+
+**Agent readiness 21.2** — agent-aware
+
+| Agent-readiness dimension | Result |
+|---|---|
+| Spec Presence | — |
+| Agentic Access | — |
+| Reversibility Documented | — |
+| MCP Server | — |
+| Auth Clarity | served (partial credit) |
+| Idempotency | — |
+| Error Semantics | — |
+| OpenAPI Examples | — |
+| Rate Limit Signal | documented (partial credit) |
+| Event Surface Described | — |
+| Agent Skills | yes |
+| Well Known Catalog | — |
+| Consent Identity | — |
+| Agent Card | — |
+| Dry Run Mode | — |
+| Delegated Identity | served (partial credit) |
+| Protected Resource Metadata | — |
+| Dynamic Client Registration | yes |
+| Agentic Commerce | — |
+
+**Regulatory alignment 45.1** — Horizontal (data, software, accessibility, platform)
+
+The rubric is published at [github.com/api-evangelist/kin-score](https://github.com/api-evangelist/kin-score). The per-check breakdown behind these numbers — which checks were earned, partial or missed — along with score history and how this provider compares to its peers, is available at [apis.io/providers/klue/](https://apis.io/providers/klue/).
+
+## How this profile is made
+
+API Evangelist profiles a company's public API surface the way a developer would find it: the website, developer portal and documentation, the specifications it publishes, its public repositories, and its pricing, status and changelog pages. From that it derives the properties above — contracts split per API, workflows, schemas, collections, governance rules, plans and rate limits — and scores them against the published [Kin Score rubric](https://github.com/api-evangelist/kin-score).
+
+The artifacts are published on [APIs.io](https://apis.io), not in this repository. This repository is the public record for Klue: the place to say something is wrong, missing or out of date, and to ask for a re-score or a removal.
+
+## Open an issue
+
+- **Something about this listing** — a wrong description, a missing API, a stale artifact or a question about the rating: [open an issue on this repository](https://github.com/api-evangelist/klue/issues/new).
+- **A new API, or one that is not in the catalog yet** — [submit it on APIs.io](https://apis.io/add/).
+- **Anything else** — [the APIs.io inbox](https://github.com/api-search/inbox/issues/new) or [info@apievangelist.com](mailto:info@apievangelist.com).
